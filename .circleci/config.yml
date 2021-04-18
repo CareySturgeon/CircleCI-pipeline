@@ -11,11 +11,26 @@ jobs:
       docker:
       # primary container image
         - image: circleci/node:13.8.0
+      steps:
+        #- hello_cache:
+          #keys: print_hello
+        - run:
+          name: print_hello
+          command:
+            echo hello
+            
+            
 
   print_world:
     build:
       docker:
-        - image:  circleci/node:13.8.0     
+        - image:  circleci/node:13.8.0
+      steps:
+        - run:
+          name: print_world
+          command:
+            echo world
+
   # print_hello
   # print_world
 workflows:
