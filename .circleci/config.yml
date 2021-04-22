@@ -7,29 +7,21 @@ orbs:
 # Orchestrate or schedule a set of jobs
 jobs:
   print_hello:
-    build:
-      docker:
+    docker:
       # primary container image
-        - image: circleci/node:13.8.0
-      steps:
+      - image: circleci/node:13.8.0
+    steps:
         #- hello_cache:
           #keys: print_hello
-        - run:
-          name: print_hello
-          command:
-            echo hello
+      - run: echo hello
             
             
 
   print_world:
-    build:
-      docker:
-        - image:  circleci/node:13.8.0
-      steps:
-        - run:
-          name: print_world
-          command:
-            echo world
+    docker:
+      - image:  circleci/node:13.8.0
+    steps:
+      - run: echo world
 
   # print_hello
   # print_world
@@ -39,3 +31,7 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+      - print_hello
+      - print_world:
+          requires:
+            - print_hello
